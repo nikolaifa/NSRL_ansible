@@ -1,0 +1,45 @@
+---
+
+- name: python3 check if exists
+  command: python3 --version
+  ignore_errors: yes
+  register: python3_present
+
+- name: python3 | Install package
+  apt: name=python3 state=latest
+  become: yes
+  become_user: root
+  when: python3_present is failed
+
+- name: pip3 | Install package
+  apt: name=python3-pip state=latest
+  become: yes
+  become_user: root
+
+- name: Install plyvel python module
+  become: yes
+  become_user: root
+  pip:
+    name: plyvel
+    state: latest
+    executable: pip3
+    extra_args: "{{ pip_extra_args | default('') }}"
+
+- name: wget check if exists
+  command: wget --version
+  ignore_errors: yes
+  register: wget_present
+
+- name: wget | Install package
+  apt: name=wget state=latest
+  become: yes
+  become_user: root
+  when: wget_present is failed
+
+- name: Unarchive 
+  unarchive:
+    src: "{{ NSRL_zip_url }}"
+    dest: "{{ NSRL_path }}"
+    remote_src: yes
+  become: yes
+  become_user: root

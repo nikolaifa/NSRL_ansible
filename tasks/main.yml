@@ -25,17 +25,6 @@
     executable: pip3
     extra_args: "{{ pip_extra_args | default('') }}"
 
-- name: wget check if exists
-  command: wget --version
-  ignore_errors: yes
-  register: wget_present
-
-- name: wget | Install package
-  apt: name=wget state=latest
-  become: yes
-  become_user: root
-  when: wget_present is failed
-
 - name: Unarchive 
   unarchive:
     src: "{{ NSRL_zip_url }}"

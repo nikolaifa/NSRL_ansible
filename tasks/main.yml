@@ -29,6 +29,8 @@
   file:
     path: "{{ NSRL_path }}"
     state: directory
+  become: yes
+  become_user: root
 
 - name: Unarchive 
   unarchive:

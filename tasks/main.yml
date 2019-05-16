@@ -24,6 +24,11 @@
     state: latest
     executable: pip3
     extra_args: "{{ pip_extra_args | default('') }}"
+    
+- name: ensure NSRL directory exists
+  file:
+    path: "{{ NSRL_path }}"
+    state: directory
 
 - name: Unarchive 
   unarchive:

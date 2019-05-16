@@ -37,6 +37,5 @@
     src: "{{ NSRL_zip_url }}"
     dest: "{{ NSRL_path }}"
     remote_src: yes
-    creates: "{{ NSRL_path }}"
   become: yes
   become_user: root

@@ -1,18 +1,18 @@
 ---
 
-- name: python3 check if exists
-  command: python3 --version
+- name: python check if exists
+  command: python --version
   ignore_errors: yes
-  register: python3_present
+  register: python_present
 
-- name: python3 | Install package
-  apt: name=python3 state=latest
+- name: python | Install package
+  apt: name=python state=latest
   become: yes
   become_user: root
-  when: python3_present is failed
+  when: python_present is failed
 
-- name: pip3 | Install package
-  apt: name=python3-pip state=latest
+- name: pip | Install package
+  apt: name=python-pip state=latest
   become: yes
   become_user: root
 
@@ -22,7 +22,7 @@
   pip:
     name: plyvel
     state: latest
-    executable: pip3
+    executable: pip
     extra_args: "{{ pip_extra_args | default('') }}"
     
 - name: ensure NSRL directory exists
